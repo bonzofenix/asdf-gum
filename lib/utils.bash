@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
+set -x
 
 GH_REPO="https://github.com/charmbracelet/gum"
 
@@ -42,7 +43,7 @@ download_release() {
   esac
 
   case "$(uname -m)" in
-    aarch64) arch=aarch64 ;;
+    aarch64) arch=arm64 ;;
     x86_64) arch=x86_64 ;;
     arm64) arch=arm64 ;;
   esac
@@ -81,6 +82,7 @@ install_version() {
 
     local tool_cmd
     tool_cmd="gum"
+    chmod +x "$install_path/bin/$tool_cmd"
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."
 
     echo "gum $version installation was successful!"
